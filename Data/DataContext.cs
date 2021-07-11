@@ -8,10 +8,9 @@ namespace ChallengeComplain.Data
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-
         }
 
-        //public DbSet<Complain> Complaints { get; set; }
+        public DbSet<Complain> Complaints { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Locale> Locales { get; set; }
     }

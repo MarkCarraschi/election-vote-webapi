@@ -13,8 +13,7 @@ namespace ChallengeComplain.Controllers
         [HttpGet]
         [Route("")]
         public async Task<ActionResult<List<Locale>>> Get(
-            [FromServices] DataContext context,
-            [FromBody] Locale model
+            [FromServices] DataContext context
         )
         {
             var locales = await context.Locales.AsNoTracking().ToListAsync();
@@ -28,16 +27,22 @@ namespace ChallengeComplain.Controllers
             [FromBody] Locale model
         )
         {
-            if (ModelState.IsValid)
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
+            try
             {
                 context.Locales.Add(model);
                 await context.SaveChangesAsync();
-                return model;
+                return Ok(model);
             }
-            else
+            catch
             {
-                return BadRequest(ModelState);
+                return BadRequest(new { message = "Locale can't be created" });
             }
         }
+
+        
     }
 }

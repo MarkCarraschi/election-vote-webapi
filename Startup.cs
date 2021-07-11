@@ -33,7 +33,6 @@ namespace ChallengeComplain
         {
 
             services.AddControllers();
-
             services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
 
             services.AddSwaggerGen(c =>
@@ -61,6 +60,11 @@ namespace ChallengeComplain
             });
 
             app.UseRouting();
+            
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
             app.UseAuthorization();
 
